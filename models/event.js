@@ -1,46 +1,40 @@
 const mongoose = require('mongoose')
 
-const UserSchema = new mongoose.Schema({
-    firstname: {
+const EventSchema = new mongoose.Schema({
+    user: {
         type: String,
         required: true
     },
-    lastname: {
+    name: {
         type: String,
         required: true
     },
-    email: {
+    place: {
         type: String,
-        unique: true,
-        trim: true,
-        dropDups: true,
         required: true
     },
-    birthday: {
+    time: {
         type: Date,
         required: true
     },
-    country: {
+    description: {
         type: String,
         required: true
     },
-    password: {
+    entrance: {
+        type: String,
+        required: true
+    },
+    photo: {
         type: String,
         required: true
     },
     date: {
         type: Date,
         default: Date.now
-    },
-    photo: {
-        type: String
-    },
-    isAdmin: {
-        type: Number,
-        default: 1
     }
 })
 
-const User = mongoose.model('User', UserSchema)
+const Event = mongoose.model('Event', EventSchema)
 
-module.exports = User
+module.exports = Event

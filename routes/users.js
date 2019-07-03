@@ -8,18 +8,8 @@ const jwt = require('jsonwebtoken')
 const jwtKey = require('../config/keys').jwtKey
 const jwtExpiry = 3600
 
-router.get('/', (req,res)=>{
-    User.find()
-    .then(profile =>{
-        res.send(profile)
-    })
-    .catch(err =>{res.json({data: err.message})})
- 
-})
-
-
 router.post('/signup',(req,res)=>{
-    const { firstname, lastname, email, password } = req.body
+    const { firstname, lastname, email, birthday, country, password, isAdmin } = req.body
     const query = {email: email}
     User.find(query)
     .then(userData =>{
@@ -40,7 +30,10 @@ router.post('/signup',(req,res)=>{
                         firstname,
                         lastname,
                         email,
-                        password: hash
+                        birthday,
+                        country,
+                        password: hash,
+                        isAdmin
                     })
                     newUser.save()
                     .then((result)=>{
