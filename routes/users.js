@@ -60,7 +60,7 @@ router.post('/signup',(req,res)=>{
                         })
                         res.end()
                     })
-                    .catch((error)=>{
+                    .catch(()=>{
                         res.status(500).json({ message: 'Ooops! Something went wrong.' })
                         res.end()
                     })
