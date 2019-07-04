@@ -16,7 +16,7 @@ router.post('/signup',(req,res)=>{
 
         if(userData.length > 0)
         {
-            res.status(401).json({ message: 'Email Address already in our database' })
+            res.status(401).json({ error: 'Email Address already in our database' })
             res.end()
         }
         else{
@@ -54,7 +54,7 @@ router.post('/signup',(req,res)=>{
                         res.end()
                     })
                     .catch(()=>{
-                        res.status(500).json({ message: 'Ooops! Something went wrong.' })
+                        res.status(500).json({ error: 'Ooops! Something went wrong.' })
                         res.end()
                     })
                 }
@@ -62,7 +62,7 @@ router.post('/signup',(req,res)=>{
         }
     })
     .catch(()=>{
-        res.status(500).json({ message: 'Ooops! Something went wrong.' })
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
     })
 })
 
@@ -75,13 +75,13 @@ router.post('/login', (req,res)=>{
 
         if(userData.length < 1)
         {
-            res.status(401).json({ message: 'Email not found' })
+            res.status(401).json({ error: 'Email not found' })
             res.end()
         }
 
         bcrypt.compare(password, userData[0].password, (err, result)=>{
             if(err){
-                res.status(500).json({ message: 'Something went wrong' })
+                res.status(500).json({ error: 'Something went wrong' })
                 res.end()
             }
             if(result){
@@ -102,14 +102,14 @@ router.post('/login', (req,res)=>{
                 res.end()
             }
             else{
-                res.status(401).json({ message: 'Incorrect Password' })
+                res.status(401).json({ error: 'Incorrect Password' })
                 res.end()
             }
         })
     })
     .catch(err =>{
         console.log(err)
-        res.json({ message: 'Invalid email'})
+        res.json({ error: 'Invalid email'})
         res.end()
     })
 })

@@ -1,26 +1,76 @@
 const mongoose = require('mongoose')
 
 const PostSchema = new mongoose.Schema({
-    user: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    postOn: {
-        type: String,
-        required: true
+    by: {
+        _id:{
+            type: String,
+            required: true 
+        },
+        name:{
+            type: String,
+            required: true 
+        },
+        photo:{
+            type: String
+        }
     },
     description: {
-        type: String,
-        required: true
+        postText: {
+            type: String,
+            required: true 
+        },
+        postPhoto:{
+            type: String
+        },
+        date:{
+            type: Date,
+            default: Date.now
+        }
     },
-    photo: {
-        type: String
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    comments: [new mongoose.Schema({
+        by: {
+            _id:{
+                type: String,
+                required: true     
+            },
+            name:{
+                type: String,
+                required: true 
+            },
+            photo:{
+                type: String
+            }
+        },
+        description: {
+            postText: {
+                type: String,
+                required: true 
+            },
+            postPhoto:{
+                type: String,
+                required: true 
+            },
+            date:{
+                type: Date,
+                default: Date.now
+            }
+        },
+    })],
+    likes: [new mongoose.Schema({
+        by: {
+            _id:{
+                type: String,
+                required: true 
+            },
+            name:{
+                type: String,
+                required: true 
+            },
+            photo:{
+                type: String
+            }
+        }
+    })]
 })
 
 const Post = mongoose.model('Post', PostSchema)

@@ -13,14 +13,14 @@ router.get('/', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
-        res.status(401).json({ message: 'Log In First' })
+        res.status(401).json({ error: 'Log In First' })
         res.end()
     }
 
     Place.find()
     .then(result=>{
         if(result.length == 0){
-            res.json({ message: 'No Places to show' })
+            res.json({ error: 'No Places to show' })
             res.end()
         }
         else{
@@ -32,7 +32,7 @@ router.get('/', (req,res)=>{
         }
     })
     .catch(()=>{
-        res.status(500).json({ message: 'Ooops! Something went wrong.' })
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
         res.end()
     })
 })
@@ -41,7 +41,7 @@ router.post('/add',(req,res)=>{
     const token = req.cookies.token
 
     if(!token){
-        res.status(401).json({ message: 'Log In First' })
+        res.status(401).json({ error: 'Log In First' })
         res.end()
     }
 
@@ -54,7 +54,7 @@ router.post('/add',(req,res)=>{
         .then(placeData =>{
             if(placeData.length > 0)
             {
-                res.status(401).json({ message: 'The Place you are trying to register is already in our database' })
+                res.status(401).json({ error: 'The Place you are trying to register is already in our database' })
                 res.end()
             }
             else{
@@ -77,7 +77,7 @@ router.post('/add',(req,res)=>{
                     res.end()
                 })
                 .catch(()=>{
-                    res.status(500).json({ message: 'Ooops! Something went wrong.' })
+                    res.status(500).json({ error: 'Ooops! Something went wrong.' })
                     res.end()
                 })
             }
@@ -86,12 +86,12 @@ router.post('/add',(req,res)=>{
 
     if(payload.isAdmin < 3){
         const { name, type, description, province, district } = req.body
-        const query = {name: name, province: province, district: district}
+        const query = {name: name}
         Place.find(query)
         .then(placeData =>{
             if(placeData.length > 0)
             {
-                res.status(401).json({ message: 'The Place you are trying to register is already in our database' })
+                res.status(401).json({ error: 'The Place you are trying to register is already in our database' })
                 res.end()
             }
             else{
@@ -118,12 +118,12 @@ router.post('/add',(req,res)=>{
                         res.end()
                     })
                     .catch(()=>{
-                        res.status(500).json({ message: 'Ooops! Something went wrong.' })
+                        res.status(500).json({ error: 'Ooops! Something went wrong.' })
                         res.end()
                     })
                 })
                 .catch(()=>{
-                    res.status(500).json({ message: 'Ooops! Something went wrong.' })
+                    res.status(500).json({ error: 'Ooops! Something went wrong.' })
                     res.end()
                 })
             }
@@ -135,14 +135,14 @@ router.post('/:id/claim', (req, res)=>{
     const token = req.cookies.token
 
     if(!token){
-        res.status(401).json({ message: 'Log In First' })
+        res.status(401).json({ error: 'Log In First' })
         res.end()
     }
 
     var payload = jwt.verify(token, jwtKey)
 
     if(payload.isAdmin >= 3){
-        res.json({ message: 'Sorry you can not own a place' })
+        res.json({ error: 'Sorry you can not own a place' })
         res.end()
     }
 
@@ -165,17 +165,17 @@ router.post('/:id/claim', (req, res)=>{
                     })
                 })
                 .catch((err)=>{
-                    res.status(500).json({ message: err })
+                    res.status(500).json({ error: err })
                     res.end()
                 })
             }
             else{
-                res.json({ message: 'The Place has already been claimed' })
+                res.json({ error: 'The Place has already been claimed' })
                 res.end()
             }
         })
         .catch(()=>{
-            res.status(500).json({ message: 'Ooops! Something went wrong.' })
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
             res.end()
         })
     }
@@ -185,14 +185,14 @@ router.get('/claims', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
-        res.status(401).json({ message: 'Log In First' })
+        res.status(401).json({ error: 'Log In First' })
         res.end()
     }
 
     var payload = jwt.verify(token, jwtKey)
 
     if( payload.isAdmin < 3 ){
-        res.status(403).json({ message: 'Access is denied.' })
+        res.status(403).json({ error: 'Access is denied.' })
         res.end()
     }
     else{
@@ -213,7 +213,7 @@ router.get('/claims', (req,res)=>{
             }
         })
         .catch(()=>{
-            res.status(500).json({ message: 'Ooops! Something went wrong.' })
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
             res.end()
         })
     }
@@ -224,14 +224,14 @@ router.get('/claims/me', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
-        res.status(401).json({ message: 'Log In First' })
+        res.status(401).json({ error: 'Log In First' })
         res.end()
     }
 
     var payload = jwt.verify(token, jwtKey)
 
     if( payload.isAdmin < 3 ){
-        res.status(403).json({ message: 'Access is denied.' })
+        res.status(403).json({ error: 'Access is denied.' })
         res.end()
     }
     else{
@@ -252,7 +252,7 @@ router.get('/claims/me', (req,res)=>{
             }
         })
         .catch(()=>{
-            res.status(500).json({ message: 'Ooops! Something went wrong.' })
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
             res.end()
         })
     }
@@ -262,14 +262,14 @@ router.post('/claims/:id/approve', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
-        res.status(401).json({ message: 'Log In First' })
+        res.status(401).json({ error: 'Log In First' })
         res.end()
     }
 
     var payload = jwt.verify(token, jwtKey)
 
     if( payload.isAdmin < 3 ){
-        res.status(403).json({ message: 'Access is denied.' })
+        res.status(403).json({ error: 'Access is denied.' })
         res.end()
     }
     else{
@@ -277,7 +277,7 @@ router.post('/claims/:id/approve', (req,res)=>{
         Owner.findOne(query)
         .then((result)=>{
             if(result.length == 0){
-                res.status(401).json({ message: 'Wrong request' })
+                res.status(401).json({ error: 'Wrong request' })
                 res.end()
             }
 
@@ -309,35 +309,76 @@ router.post('/claims/:id/approve', (req,res)=>{
                                 })
                             })
                             .catch(()=>{
-                                res.status(500).json({ message: 'Ooops! Something went wrong.5' })
+                                res.status(500).json({ error: 'Ooops! Something went wrong.5' })
                                 res.end()
                             })
                         })
                         .catch(()=>{
-                            res.status(500).json({ message: 'Ooops! Something went wrong.1' })
+                            res.status(500).json({ error: 'Ooops! Something went wrong.1' })
                             res.end()
                         })
                     })
                     .catch(()=>{
-                        res.status(500).json({ message: 'Ooops! Something went wrong.2' })
+                        res.status(500).json({ error: 'Ooops! Something went wrong.2' })
                         res.end()
                     })
                 })
                 .catch(()=>{
-                    res.status(500).json({ message: 'Ooops! Something went wrong.3' })
+                    res.status(500).json({ error: 'Ooops! Something went wrong.3' })
                     res.end()
                 })
             })
             .catch(()=>{
-                res.status(500).json({ message: 'Ooops! Something went wrong.4' })
+                res.status(500).json({ error: 'Ooops! Something went wrong.4' })
                 res.end()
             })
         })
         .catch(()=>{
-            res.status(500).json({ message: 'Ooops! Something went wrong.6' })
+            res.status(500).json({ error: 'Ooops! Something went wrong.6' })
             res.end()
         })
     }
+})
+
+router.delete('/:id/delete', (req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    const query = { _id: req.params.id }
+
+    Place
+    .find(query)
+    .then(result=>{
+        if( result.user = payload.id || payload.isAdmin > 3 ){
+            Place
+            .findByIdAndDelete(req.params.id)
+            .then(results=>{
+                res.json({
+                    success: true,
+                    data: results
+                })
+                res.end()
+            })
+            .catch(()=>{
+                res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                res.end()
+            })
+        }
+        else{
+            res.status(401).json({ error: 'You do not have such access' })
+            res.end()
+        }
+    })
+    .catch(()=>{
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
+        res.end()
+    })
 })
 
 module.exports = router

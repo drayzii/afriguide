@@ -24,9 +24,11 @@ app.get('/', (req, res) => {
 
 const usersRoute = require('./routes/users')
 const placesRoute = require('./routes/places')
+const eventsRoute = require('./routes/events')
 
 app.use('/users', usersRoute)
 app.use('/places', placesRoute)
+app.use('/events', eventsRoute)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
