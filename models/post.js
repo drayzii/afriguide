@@ -6,11 +6,7 @@ const PostSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    type: {
-        type: String,
-        required: true
-    },
-    poston: {
+    postOn: {
         type: String,
         required: true
     },

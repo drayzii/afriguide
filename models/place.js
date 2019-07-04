@@ -30,6 +30,14 @@ const PlaceSchema = new mongoose.Schema({
     },
     photo: {
         type: String
+    },
+    isApproved: {
+        type: Boolean,
+        default: false
+    },
+    byAdmin:{
+        type: Boolean,
+        default: false
     }
 })
 

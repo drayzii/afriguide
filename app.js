@@ -1,7 +1,6 @@
 const express = require('express')
 const db = require('./config/keys').mongoURI
 const mongoose = require('mongoose')
-const usersRoute = require('./routes/users')
 const app = express()
 const cookieParser = require('cookie-parser')
 
@@ -23,7 +22,11 @@ app.get('/', (req, res) => {
     res.send('Welcome to AfriGuide')
 })
 
+const usersRoute = require('./routes/users')
+const placesRoute = require('./routes/places')
+
 app.use('/users', usersRoute)
+app.use('/places', placesRoute)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

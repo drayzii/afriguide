@@ -1,18 +1,19 @@
 const mongoose = require('mongoose')
 
 const OwnerSchema = new mongoose.Schema({
-    user: {
-        type: String,
-        unique: true,
-        required: true
-    },
     place: {
         type: String,
         required: true
     },
-    isApproved: {
+    user: {
+        type: String,
+        required: true
+    },
+    oldUser: {
+        type: String,
+    },
+    complete: {
         type: Boolean,
-        required: true,
         default: false
     }
 })
