@@ -3,10 +3,108 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const User = require('../models/users')
+const Event = require('../models/event')
+const Place = require('../models/place')
+const Owner = require('../models/owner')
 const jwt = require('jsonwebtoken')
 
 const jwtKey = require('../config/keys').jwtKey
 const jwtExpiry = 3600
+
+router.get('/', (req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    if( payload.isAdmin > 3 ){
+        User.find()
+        .then(result=>{
+            if(result.length == 0){
+                res.json({ error: 'No Users to show' })
+                res.end()
+            }
+            else{
+                res.json({
+                    success: true,
+                    data: result
+                })
+                res.end()
+            }
+        })
+        .catch(()=>{
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
+            res.end()
+        })
+    }
+    else{
+        res.status(500).json({ error: 'You do not have such access.' })
+        res.end()
+    }
+})
+
+router.get('/my-profile',(req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    const query = { _id: payload.id }
+
+    User.findOne(query)
+    .then(result=>{
+        res.json({
+            success: true,
+            data: result
+        })
+        res.end()
+    })
+    .catch(()=>{
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
+        res.end()
+    })
+})
+
+router.get('/:id', (req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    if( payload.isAdmin > 3 ){
+
+        const query = { _id: req.params.id }
+
+        User.findOne(query)
+        .then(result=>{
+            res.json({
+                success: true,
+                data: result
+            })
+            res.end()
+        })
+        .catch(()=>{
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
+            res.end()
+        })
+    }
+    else{
+        res.status(500).json({ error: 'You do not have such access.' })
+        res.end()
+    }
+})
 
 router.post('/signup',(req,res)=>{
     const { firstname, lastname, email, birthday, country, password, isAdmin } = req.body
@@ -66,7 +164,6 @@ router.post('/signup',(req,res)=>{
     })
 })
 
-
 router.post('/login', (req,res)=>{
     const { email, password } = req.body
     const query = {email: email}
@@ -110,6 +207,89 @@ router.post('/login', (req,res)=>{
     .catch(err =>{
         console.log(err)
         res.json({ error: 'Invalid email'})
+        res.end()
+    })
+})
+
+router.put('/my-profile/update',(req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    const { firstname, lastname, country } = req.body
+
+    const query = { _id: payload.id }
+
+    const update = {
+        firstname,
+        lastname,
+        country
+    }
+        User
+        .findOneAndUpdate(query, update, { new: true })
+        .then(results=>{
+            res.json({
+                success: true,
+                data: results
+            })
+            res.end()
+        })
+        .catch(()=>{
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
+            res.end()
+        })
+    
+})
+
+router.delete('/my-profile/delete',(req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    const query = { _id: payload.id }
+
+    User
+    .findOneAndDelete(query)
+    .then(results=>{
+
+        Event
+        .deleteMany({ user: payload.id })
+        .then(()=>{
+
+            Place
+            .deleteMany({ user: payload.id })
+            .then(()=>{
+                
+            })
+            .catch(()=>{
+                res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                res.end()
+            })
+
+            res.json({
+                success: true,
+                data: results
+            })
+            res.end()
+
+        })
+        .catch(()=>{
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
+            res.end()
+        })
+    })
+    .catch(()=>{
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
         res.end()
     })
 })

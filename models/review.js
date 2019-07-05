@@ -5,7 +5,7 @@ const ReviewSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    reviewOn: {
+    place: {
         type: String,
         required: true
     },

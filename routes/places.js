@@ -37,6 +37,36 @@ router.get('/', (req,res)=>{
     })
 })
 
+router.get('/:id', (req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    const query = { _id: req.params.id }
+
+    Place.find(query)
+    .then(result=>{
+        if(result.length == 0){
+            res.json({ error: 'No Places to show' })
+            res.end()
+        }
+        else{
+            res.json({
+                success: true,
+                data: result
+            })
+            res.end()
+        }
+    })
+    .catch(()=>{
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
+        res.end()
+    })
+})
+
 router.post('/add',(req,res)=>{
     const token = req.cookies.token
 
@@ -129,6 +159,57 @@ router.post('/add',(req,res)=>{
             }
         })
     }
+})
+
+router.put('/:id/update', (req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    const { name, type, description, province, district } = req.body
+
+    const query = { _id: req.params.id }
+
+    const update = {
+        name,
+        type,
+        description,
+        province,
+        district
+    }
+
+    Place
+    .find(query)
+    .then(result=>{
+        if( result.user = payload.id ){
+            Place
+            .findOneAndUpdate(query, update, { new: true })
+            .then(results=>{
+                res.json({
+                    success: true,
+                    data: results
+                })
+                res.end()
+            })
+            .catch(()=>{
+                res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                res.end()
+            })
+        }
+        else{
+            res.status(401).json({ error: 'You do not have such access' })
+            res.end()
+        }
+    })
+    .catch(()=>{
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
+        res.end()
+    })
 })
 
 router.post('/:id/claim', (req, res)=>{
@@ -379,6 +460,12 @@ router.delete('/:id/delete', (req,res)=>{
         res.status(500).json({ error: 'Ooops! Something went wrong.' })
         res.end()
     })
+})
+
+// Work on this ( Giving the access back to an agent when the owner deletes the account ) && Talking about facts with Ben
+
+router.patch('/:id/backToAdmin', (req,res)=>{
+    
 })
 
 module.exports = router

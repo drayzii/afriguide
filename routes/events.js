@@ -85,7 +85,7 @@ router.post('/add',(req,res)=>{
                         })
                         res.end()
                     })
-                    .catch(()=>{
+                    .catch((err)=>{
                         res.status(500).json({ error: err })
                         res.end()
                     })
@@ -172,6 +172,114 @@ router.post('/add',(req,res)=>{
         })
     }
 
+})
+
+router.put('/:id/update',(req,res)=>{
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    var { placeName, placeIsKnown, name, text, time, entrance } = req.body
+
+
+    if(placeIsKnown){
+
+        const query1 = { name: placeName }
+        Place
+        .findOne(query1)
+        .then((result1)=>{
+            const update = {
+                place: {
+                    _id: result1._id,
+                    name: result1.name
+                },
+                description: {
+                    name,
+                    text,
+                    time,
+                    entrance
+                }
+            }
+            const query = { _id: req.params.id  }
+            Event
+            .find(query)
+            .then(result=>{
+                if( result.user = payload.id ){
+                    Event
+                    .findOneAndUpdate(query, update, { new: true })
+                    .then(results=>{
+                        res.json({
+                            success: true,
+                            data: results
+                        })
+                        res.end()
+                    })
+                    .catch(()=>{
+                        res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                        res.end()
+                    })
+                }
+                else{
+                    res.status(401).json({ error: 'You do not have such access' })
+                    res.end()
+                }
+            })
+            .catch(()=>{
+                res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                res.end()
+            })
+        })
+        .catch(()=>{
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
+            res.end()
+        })
+    }
+    else{
+        const update = {
+            place: {
+                name: placeName
+            },
+            description: {
+                name,
+                text,
+                time,
+                entrance
+            }
+        }
+        const query = { _id: req.params.id  }
+        Event
+        .find(query)
+        .then(result=>{
+            if( result.user = payload.id ){
+                Event
+                .findOneAndUpdate(query, update, { new: true })
+                .then(results=>{
+                    res.json({
+                        success: true,
+                        data: results
+                    })
+                    res.end()
+                })
+                .catch(()=>{
+                    res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                    res.end()
+                })
+            }
+            else{
+                res.status(401).json({ error: 'You do not have such access' })
+                res.end()
+            }
+        })
+        .catch(()=>{
+            res.status(500).json({ error: 'Ooops! Something went wrong.' })
+            res.end()
+        })
+    }
 })
 
 router.patch('/:id/interested', (req,res)=>{
@@ -328,6 +436,5 @@ router.delete('/:id/delete',(req,res)=>{
         res.end()
     })
 })
-
 
 module.exports = router

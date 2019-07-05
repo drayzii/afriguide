@@ -12,6 +12,10 @@ const ReportSchema = new mongoose.Schema({
     reportOn: {
         type: String,
         required: true
+    },
+    reason: {
+        type: String,
+        required: true
     }
 })
 

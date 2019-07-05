@@ -49,7 +49,6 @@ const EventSchema = new mongoose.Schema({
         _id: {
             type: String,
             required: true,
-            unique: true,
             dropDups: true
         },
         name: {
@@ -64,7 +63,6 @@ const EventSchema = new mongoose.Schema({
         _id: {
             type: String,
             required: true,
-            unique: true,
             dropDups: true
         },
         name: {
