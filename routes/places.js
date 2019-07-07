@@ -9,6 +9,7 @@ const User = require('../models/users')
 
 const jwtKey = require('../config/keys').jwtKey
 
+
 router.get('/', (req,res)=>{
     const token = req.cookies.token
 
@@ -262,7 +263,7 @@ router.post('/:id/claim', (req, res)=>{
     }
 })
 
-router.get('/claims', (req,res)=>{
+router.get('/claims/view', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
@@ -301,7 +302,7 @@ router.get('/claims', (req,res)=>{
     
 })
 
-router.get('/claims/me', (req,res)=>{
+router.get('/claims/my-claims', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
@@ -462,10 +463,47 @@ router.delete('/:id/delete', (req,res)=>{
     })
 })
 
-// Work on this ( Giving the access back to an agent when the owner deletes the account ) && Talking about facts with Ben
-
 router.patch('/:id/backToAdmin', (req,res)=>{
-    
+    const token = req.cookies.token
+
+    if(!token){
+        res.status(401).json({ error: 'Log In First' })
+        res.end()
+    }
+
+    var payload = jwt.verify(token, jwtKey)
+
+    const query = { place: req.params.id }
+
+    Owner.find(query)
+    .then(result=>{
+        if( result.user != payload.id ){
+            res.json({
+                error: "You do not have such access"
+            })
+            res.end()
+        }
+        else{
+            Place.findOneAndUpdate(query, {
+                user: result.oldUser
+            }, { new: true })
+            .then(result2=>{
+                res.json({
+                    success: true,
+                    data: result2
+                })
+                res.end()
+            })
+            .catch(()=>{
+                res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                res.end()
+            })
+        }
+    })
+    .catch(()=>{
+        res.status(500).json({ error: 'Ooops! Something went wrong.' })
+        res.end()
+    })
 })
 
 module.exports = router
