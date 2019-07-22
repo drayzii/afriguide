@@ -10,7 +10,7 @@ const User = require('../models/users')
 const jwtKey = require('../config/keys').jwtKey
 
 
-router.get('/', (req,res)=>{
+router.get('/view', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
@@ -38,7 +38,7 @@ router.get('/', (req,res)=>{
     })
 })
 
-router.get('/:id', (req,res)=>{
+router.get('view/:id', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
@@ -263,7 +263,7 @@ router.post('/:id/claim', (req, res)=>{
     }
 })
 
-router.get('/claims/view', (req,res)=>{
+router.get('/claims', (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
@@ -379,6 +379,7 @@ router.post('/claims/:id/approve', (req,res)=>{
 
                         results3.save()
                         .then(()=>{
+                            result.user = result.user
                             result.oldUser = payload.id
                             result.complete = true
                             result.save()
@@ -475,7 +476,7 @@ router.patch('/:id/backToAdmin', (req,res)=>{
 
     const query = { place: req.params.id }
 
-    Owner.find(query)
+    Owner.findOne(query)
     .then(result=>{
         if( result.user != payload.id ){
             res.json({
@@ -488,11 +489,21 @@ router.patch('/:id/backToAdmin', (req,res)=>{
                 user: result.oldUser
             }, { new: true })
             .then(result2=>{
-                res.json({
-                    success: true,
-                    data: result2
+                Owner.findOneAndUpdate(query, {
+                    complete: false,
+                    
+                }, { new: true })
+                .then(result3=>{
+                    res.json({
+                        success: true,
+                        Placedata: result2,
+                        Ownerdata: result3 
+                    })
                 })
-                res.end()
+                .catch(()=>{
+                    res.status(500).json({ error: 'Ooops! Something went wrong.' })
+                    res.end()
+                })
             })
             .catch(()=>{
                 res.status(500).json({ error: 'Ooops! Something went wrong.' })
