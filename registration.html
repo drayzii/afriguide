@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AfriGuide -Register</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+
+<body id="regbody">
+
+   
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.html">AfriGuide</a>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="mt-1 btn btn-sm btn-outline-dark" href="#" id="nv-log">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+   <div class="container">
+    <div class="row my-3">
+      <div class="col-sm-9 col-md-9 col-lg-6 mx-auto">  <!-- col-sm-9 col-md-7 col-lg-5 -->
+        <div class="card card-signin">
+          <div class="card-body">
+            <form class="form-signin" id="logg">
+                <h5 class="card-title text-center">Sign In</h5>
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+              </div>
+
+              <div class="form-label-group py-3">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+              </div>
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input">
+                <label class="custom-control-label" for="customCheck1">Remember password</label>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+              <hr class="my-3">
+              
+              <p>No account ? <a href="#" id="sign">Sign Up Here</a></p>
+            </form>
+
+            <form class="form-signin" id="signn">
+                <h5 class="card-title text-center">Sign Up</h5>
+                <div class="row">
+              <div class="col-sm-12 col-md-9 col-lg-6 form-label-group mb-2">
+                <input type="text" class="form-control" placeholder="First Name" name="firstname" required autofocus>
+              </div>
+              <div class="col-sm-12 col-md-9 col-lg-6 form-label-group mb-2">
+                <input type="text" class="form-control" placeholder="Last Name" name="lastname" required autofocus>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-sm-12 col-md-9 col-lg-6 form-label-group mb-2">
+                <input type="date" class="form-control" name="birthday" required autofocus>
+              </div>
+              <div class="col-sm-12 col-md-9 col-lg-6 form-label-group mb-2">
+                <input type="email" class="form-control" placeholder="Email" name="email" required autofocus>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-sm-12 col-md-9 col-lg-6 form-label-group mb-2">
+                <input type="text" class="form-control" name="country" placeholder="Country" required autofocus>
+              </div>
+              <div class="col-sm-12 col-md-9 col-lg-6 form-label-group mb-2">
+                <input type="file" class="form-control-file" placeholder="Profile Picture" name="photo" autofocus>
+              </div>
+            </div>
+              <div class="form-label-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
+              </div>
+              <div class="form-label-group py-2">
+                <input type="password" class="form-control" placeholder="Confirm Password" name="password2" required>
+              </div>
+              
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Remember password</label>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+              <hr class="my-2">
+
+              
+                <div class="row">
+                  <div class="col-sm-6 my-2">
+                    <button class="form-control btn btn-danger" type="submit"><i class="fa fa-google mr-2"></i> Sign In With Google</button>
+                  </div>
+                  <div class="col-sm-6 my-2">
+                    <button class="form-control btn btn-primary" type="submit"><i class="fa fa-facebook-f mr-2"></i></i> Sign In With Facebook</button>
+                  </div>
+                </div>
+              <p>Already Have An account ? <a href="#" id="log">Log In</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+
+
+
+
+  <script src="./js/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      //------------------------  ##### SIGN UP AND LOGIN FORMS ######## -------------------------------------
+      $("#logg").hide();
+      $("#sign").click(function () {
+        $("#logg").hide();
+        $("#signn").fadeIn();
+      });
+      $("#log, #nv-log").click(function () {
+        $("#logg").fadeIn();
+        $("#signn").hide();
+
+      });
+      document.getElementById("Statistics").style.display = "block";
+      document.getElementById("Grups").style.display = "none";
+      document.getElementById("Match").style.display = "none";
+
+
+    });
+  </script>
+  <script src="./js/bootstrap.min.js"></script>
+</body>
+
+</html>
