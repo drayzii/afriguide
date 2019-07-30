@@ -42,8 +42,13 @@
 		</div>
 	</nav>
 
-	<div class="container">
 
+	<div class="container">
+		<div class="text-center mt-5 pb-3">
+			<div class="heading-section ftco-animate">
+				<h2><strong>Profile</strong></h2>
+			</div>
+		</div>
 		<section>
 			<div class="row mt-5">
 				<div class="col-lg-3 col-sm-10 mycard prf-card">
@@ -95,8 +100,9 @@
 						</div>
 
 
-						<!-- Modal -->
-						<div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="editprofile" aria-hidden="true">
+						<!--Settings Modal -->
+						<div class="modal fade" id="editprofile" tabindex="-1" role="dialog"
+							aria-labelledby="editprofile" aria-hidden="true">
 							<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -106,62 +112,119 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										
-										<div class="row">
-											<div class="col-lg-4">
-												<div class="form-group">
-													<label>First Names</label>
-													<input type="text" class="form-control form-control-sm">
-												</div>
-											</div>
-											<div class="col-lg-4">
-												<div class="form-group">
-													<label>Last Name</label>
-													<input type="text" class="form-control form-control-sm">
-												</div>
-											</div>
-											<div class="mt-4 col-lg-4">
-												<button type="button" class="mt-2 btn btn-primary">Save changes</button>
-											</div>
-				
-										</div>
-										<hr>
 
-										<div class="row">
-											<div class="col-lg-4">
-												<div class="form-group">
-													<label>Old Password</label>
-													<input type="password" class="form-control form-control-sm">
-												</div> 
-											</div>
-											<div class="col-lg-4">
-												<div class="form-group">
-													<label>New Password</label>
-													<input type="password" class="form-control form-control-sm">
-												</div>
-											</div>
-											<div class="mt-4 col-lg-4">
-												<button type="button" class="mt-2 btn btn-primary">Save changes</button>
-											</div>
-				
-										</div>
-										<hr>
 
-										<div class="row">
-											<div class="col-lg-4">
-												<div class="form-group">
-													<input type="password" class="form-control form-control-sm" placeholder="Input Your Password">
-												</div> 
+										<ul class="nav nav-tabs" id="myTab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="general-tab" data-toggle="tab"
+													href="#general" role="tab" aria-controls="general"
+													aria-selected="true">General</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced"
+													role="tab" aria-controls="advanced"
+													aria-selected="false">Advanced</a>
+											</li>
+
+										</ul>
+										<div class="tab-content" id="myTabContent">
+											<div class="tab-pane fade show active" id="general" role="tabpanel"
+												aria-labelledby="general-tab">
+												<div class="row mt-3">
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>First Names</label>
+															<input type="text" class="form-control form-control-sm">
+														</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>Last Name</label>
+															<input type="text" class="form-control form-control-sm">
+														</div>
+													</div>
+													<div class="mt-4 col-lg-4">
+														<button type="button" class="mt-2 btn btn-primary">Save
+															changes</button>
+													</div>
+
+												</div>
+												<hr>
+												<div class="row mt-3">
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>Country</label>
+															<input type="text" class="form-control form-control-sm">
+														</div>
+													</div>
+													<div class="col-lg-4">
+													</div>
+													<div class="mt-4 col-lg-4">
+														<button type="button" class="mt-2 btn btn-primary">Save
+															changes</button>
+													</div>
+
+												</div>
+												<hr>
+
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>Old Password</label>
+															<input type="password" class="form-control form-control-sm">
+														</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>New Password</label>
+															<input type="password" class="form-control form-control-sm">
+														</div>
+													</div>
+													<div class="mt-4 col-lg-4">
+														<button type="button" class="mt-2 btn btn-primary">Save
+															changes</button>
+													</div>
+
+												</div>
+
 											</div>
-											<div class="col-lg-4">												
+											<div class="tab-pane fade" id="advanced" role="tabpanel"
+												aria-labelledby="advanced-tab">
+
+
+												<div class="row mt-3">
+													<div class="col-lg-4">
+														<div class="form-group">
+															<input type="password" class="form-control form-control-sm"
+																placeholder="Input Your Password">
+														</div>
+													</div>
+													<div class="col-lg-4">
+													</div>
+													<div class="col-lg-4">
+														<button class="btn btn-warning">Delete Acoount</button>
+													</div>
+
+												</div>
+
 											</div>
-											<div class="col-lg-4">												
-													<button class="btn btn-warning">Delete Acoount</button>												
-											</div>
-				
+
 										</div>
-										
-										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
@@ -171,53 +234,10 @@
 							</div>
 						</div>
 
-						<div class="modal fade" id="addplace" tabindex="-1" role="dialog" aria-labelledby="addplace" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Change Password</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										
-									
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save changes</button>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="modal fade" id="addevent" tabindex="-1" role="dialog" aria-labelledby="addevent" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Delete Account</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										
-										
-									</div>
-									
-								</div>
-							</div>
-						</div>
-
-
-
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#editprofile">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editprofile">
 							Settings
 						</button>
-					
+
 					</form>
 				</div>
 			</div>
@@ -225,8 +245,8 @@
 
 		<div class="row mt-5">
 			<section class="col-lg-6">
-				<div class="text-center mycard py-3 my-3 border border-primary font-weight-bold col-btn" data-toggle="modal"
-				data-target="#addplace">
+				<div class="text-center mycard py-3 my-3 border border-primary font-weight-bold col-btn"
+					data-toggle="modal" data-target="#addplace">
 					+ Add Place
 				</div>
 				<div class="mycard py-3 my-3">
@@ -255,12 +275,12 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</section>
 
 			<section class="col-lg-6">
-				<div class="text-center mycard py-3 my-3 border border-primary font-weight-bold col-btn" data-toggle="modal"
-				data-target="#addevent">
+				<div class="text-center mycard py-3 my-3 border border-primary font-weight-bold col-btn"
+					data-toggle="modal" data-target="#addevent">
 					+ Add Event
 				</div>
 				<div class="mycard py-3 my-3">
@@ -289,10 +309,155 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</section>
 
 		</div>
+
+
+		<!--Add Place Modal -->
+		<div class="modal fade" id="addplace" tabindex="-1" role="dialog" aria-labelledby="addplace" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Add Place</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row mt-3">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Name Of Place</label>
+									<input type="text" class="form-control form-control-sm">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Type</label>
+									<select class="form-control form-control-sm">
+										<option>Hotel</option>
+										<option>Beach</option>
+										<option>Club</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+							</div>
+
+
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Province</label>
+									<input type="text" class="form-control form-control-sm">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>District</label>
+									<input type="text" class="form-control form-control-sm">
+								</div>
+							</div>
+
+
+
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Description</label>
+									<textarea class="form-control" rows="3"></textarea>
+								</div>
+							</div>
+
+
+
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"> Add Place</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Add Event Modal -->
+		<div class="modal fade" id="addevent" tabindex="-1" role="dialog" aria-labelledby="addevent" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Add Event</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+							<div class="row mt-3">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Name Of Place</label>
+										<input type="text" class="form-control form-control-sm">
+									</div>
+								</div>
+								<div class="col-lg-6">
+										<div class="form-group">
+											<label>Name Of Event</label>
+											<input type="text" class="form-control form-control-sm">
+										</div>
+									</div>
+	
+	
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Text</label>
+										<input type="text" class="form-control form-control-sm">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Date</label>
+										<input type="date" class="form-control form-control-sm">
+									</div>
+								</div>
+	
+	
+	
+							</div>
+							<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Entrance</label>
+											<input type="text" class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Entrance VIP</label>
+											<input type="number" class="form-control form-control-sm">
+										</div>
+									</div>
+		
+		
+		
+								</div>
+						</div>
+						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary"> Add Event</button>
+							</div>
+				</div>
+			</div>
+		</div>
+
+
 
 	</div>
 
